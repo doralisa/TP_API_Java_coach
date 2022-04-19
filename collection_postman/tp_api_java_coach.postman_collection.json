@@ -1,0 +1,229 @@
+{
+	"info": {
+		"_postman_id": "043a132b-6de7-4612-9401-17e1ac32a91e",
+		"name": "tp_api_java_coach",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/conceptos",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/conceptos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"conceptos"
+					]
+				},
+				"description": "Trae lista de conceptos."
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/conceptos/crear",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombreConcepto\": \"El rol de las excepciones\",\r\n    \"numeroConcepto\": 1,\r\n    \"contenidoConcepto\": \"Una excepción es la forma en la que Java nos dice 'Me rindo. No sé qué hacer en este momento. Tu lidia con esto'. Cuando escribimos un método, podemos lidiar con la excepción manualmente o hacerla un problema del código de llamada. Como ejemplo, pensemos en Java como un niño que va al zoológico. El camino feliz será cuando nada sale mal. El niño mirará los animales hasta que el programa felizmente termine. Nada salió mal y no hubo excepciones con las que lidiar. La hermana menor del niño, sin embarno, no experimenta el camino feliz. En medio de la emoción se tropieza y cae. Por suerte, la caída no es muy mala. La niña se levanta y procede a continuar su visita por el zoo. Manejó el problema por su cuenta. Desafortunadamente, durante el día se cae de nuevo y comienza a llorar. Esta vez, manifestó que necesita ayuda mediante el llanto. La historia temrina bien: su papá le curó la rodilla y le dió un abrazo. Luego volvieron a ver los animales y disfrutar del resto del día. Estas son las dos maneras que usa Java cuando se enfrenta a excepciones. Un método puede manejar la excepción por sí mismo o hacerlo responsabilidad del código de llamada. Vimos ambos casos en nuestro paseo por el zoológico.\",\r\n    \"idCapitulo\": {\r\n            \"idCapitulo\": 6,\r\n            \"nombreCapitulo\": \"Excepciones\",\r\n            \"numeroCapitulo\": 6\r\n        }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/conceptos/crear",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"conceptos",
+						"crear"
+					]
+				},
+				"description": "Crea un nuevo concepto."
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/conceptos/eliminar",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/conceptos/eliminar/13",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"conceptos",
+						"eliminar",
+						"13"
+					]
+				},
+				"description": "Elimina un concepto."
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/conceptos/actualizar",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"idConcepto\": 9,\r\n        \"nombreConcepto\": \"Entendiendo las excepciones\",\r\n        \"numeroConcepto\": 2,\r\n        \"contenidoConcepto\": \"Las excepciones permiten que un método informe al código que lo ha invocado acerca de algún error o situación anómala que se haya producido durante su ejecución. Por ejemplo, supongamos un método que recibe un código postal y devuelve el nombre del ayuntamiento al cual pertenece. En el caso normal de que el código postal sea correcto, el método devolvería el nombre del ayuntamiento. En el caso de que el código postal que se le haya pasado no exista o su formato sea incorrecto, el método lo notificaría lanzando una excepción. Una excepción en Java es un objeto de la clase Exception o de alguna de sus subclases\",\r\n        \"idCapitulo\": {\r\n            \"idCapitulo\": 6,\r\n            \"nombreCapitulo\": \"Excepciones\",\r\n            \"numeroCapitulo\": 6\r\n        }\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/conceptos/actualizar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"conceptos",
+						"actualizar"
+					]
+				},
+				"description": "Actualiza un concepto."
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/cuestionario/por/concepto",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/cuestionario/por/concepto/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cuestionario",
+						"por",
+						"concepto",
+						"4"
+					]
+				},
+				"description": "este endpoint debe recibir un concepto y debe devolver las\r\npreguntas y respuestas posibles relacionadas a este concepto."
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/cuestionario/id_respuesta/id_pregunta/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/cuestionario/id_respuesta/id_pregunta/10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cuestionario",
+						"id_respuesta",
+						"id_pregunta",
+						"10"
+					]
+				},
+				"description": "Este enpoint debe validar si el id_respuesta\r\nenviado es valido para el id_pregunta correspondiente. Este endpoint resuelve el\r\ncuestionario del endpoint anterior-"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/enviar/consejo/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/enviar/consejo/dcontreras",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"enviar",
+						"consejo",
+						"dcontreras"
+					]
+				},
+				"description": "Este endpoint sirve para enviar un consejo aleatorio (concepto) via correo a un destinatario."
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/generar/reporte",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Length",
+						"value": "0",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/generar/reporte",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"generar",
+						"reporte"
+					]
+				},
+				"description": "Este endpoint sirve para generar un PDF con las cantidades de conceptos, preguntas, respuestas y ejemplos relacionados.\r\n"
+			},
+			"response": []
+		}
+	]
+}
