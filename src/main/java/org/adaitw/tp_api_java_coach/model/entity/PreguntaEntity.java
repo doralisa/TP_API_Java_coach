@@ -12,8 +12,6 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 @Table(name = "preguntas", schema = "bot_java_coach")
 public class PreguntaEntity implements Serializable {
 

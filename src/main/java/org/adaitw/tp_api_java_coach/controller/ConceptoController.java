@@ -1,5 +1,7 @@
 package org.adaitw.tp_api_java_coach.controller;
 
+import org.adaitw.tp_api_java_coach.advice_validation.RestResponse;
+import org.adaitw.tp_api_java_coach.advice_validation.Time;
 import org.adaitw.tp_api_java_coach.model.dto.ConceptoDTO;
 import org.adaitw.tp_api_java_coach.service.impl.ConceptoServiceImpl;
 import org.slf4j.Logger;
@@ -9,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -19,60 +20,51 @@ public class ConceptoController {
     @Autowired
     private ConceptoServiceImpl conceptoServiceImpl;
 
-    private static final Logger logger = LoggerFactory.getLogger(ConceptoServiceImpl.class);
+    RestResponse resultado;
 
-    @GetMapping(path = "", produces = "application/json")
+    private static final Logger logger = LoggerFactory.getLogger(ConceptoController.class);
+
+    @GetMapping(path = "")
     public ResponseEntity getConceptos() {
 
-        try {
-            List<ConceptoDTO> conceptoDTOResponse = conceptoServiceImpl.getAllConceptos();
-            logger.info("Se muestra lista de conceptos");
-            return new ResponseEntity<>(conceptoDTOResponse, HttpStatus.OK);
-        } catch (Exception e) {
-            logger.error("Error al mostrar lista de conceptos" + e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" + e.getMessage());
-        }
+        List<ConceptoDTO> conceptoDTOResponse = conceptoServiceImpl.getAllConceptos();
+        logger.info("Se muestra lista de conceptos: " + conceptoDTOResponse);
+        return new ResponseEntity<>(conceptoDTOResponse, HttpStatus.OK);
     }
 
     @PostMapping(value = "/crear")
     public ResponseEntity crearConcepto(@RequestBody ConceptoDTO conceptoDTO) {
 
-        try {
-            ConceptoDTO newConcepto = conceptoServiceImpl.crearNuevoConcepto(conceptoDTO);
-            logger.info("Concepto creado con exito");
-            return ResponseEntity
-                    .created(new URI("/conceptos/" + newConcepto.getIdConcepto()))
-                    .body(newConcepto);
-        } catch (Exception e) {
-            logger.error("Error al crear concepto" + e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" + e.getMessage());
-        }
+        ConceptoDTO nuevoConcepto = conceptoServiceImpl.crearNuevoConcepto(conceptoDTO);
+        logger.info("Concepto creado con exito: " + nuevoConcepto);
+        resultado = new RestResponse(Time.getTime(), nuevoConcepto.toString(), 200, "Success");
+        return new ResponseEntity<>(resultado, HttpStatus.OK);
     }
 
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity deleteConcepto(@PathVariable Long id) {
 
-        try {
-            conceptoServiceImpl.borrarConcepto(id);
-            logger.info("Concepto borrado con exito");
-            return ResponseEntity.ok("Se ha borrado el registro con éxito.");
-        } catch (Exception e) {
-            logger.error("Error al borrar concepto" + e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" + e.getMessage());
-        }
+        conceptoServiceImpl.borrarConcepto(id);
+        logger.info("Concepto borrado con exito");
+        resultado = new RestResponse(Time.getTime(), "Se ha borrado el registro con éxito.", 200, "Success");
+        return new ResponseEntity<>(resultado, HttpStatus.OK);
     }
 
-    @PatchMapping("/actualizar")
+    @PatchMapping(path="/actualizar")
     public ResponseEntity updateConcepto(@RequestBody ConceptoDTO conceptoDTO) {
 
         ConceptoDTO conceptoActualizado = conceptoServiceImpl.actualizarConcepto(conceptoDTO);
-        if (conceptoActualizado != null) {
-            logger.info("Concepto actualizado con exito");
-            return ResponseEntity.ok().body(conceptoActualizado);
-        } else {
-            logger.error("Error al actualizar concepto");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": no existe el id indicado}\"");
-        }
+        logger.info("Concepto actualizado con exito");
+        resultado = new RestResponse(Time.getTime(), conceptoActualizado.toString(), 200, "Success");
+        return new ResponseEntity<>(resultado, HttpStatus.OK);
     }
+
+    @ExceptionHandler(IndexOutOfBoundsException.class)
+    public ResponseEntity<RestResponse> indexOutOfBoundsException(IndexOutOfBoundsException e) {
+        resultado = new RestResponse(Time.getTime(),
+                "ConceptoController] - IndexOutOfBoundsException: Not Found " + e.getMessage(), 404, "Error");
+        return new ResponseEntity<>(resultado, HttpStatus.IM_USED);
+    }
+
 
 }

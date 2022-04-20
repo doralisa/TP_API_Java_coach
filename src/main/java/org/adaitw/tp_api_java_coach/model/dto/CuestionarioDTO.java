@@ -16,7 +16,6 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CuestionarioDTO implements Serializable {
 
-    @JsonIgnore
     private Long idPregunta;
 
     private String contenidoPregunta;
@@ -33,12 +32,6 @@ public class CuestionarioDTO implements Serializable {
                 ", idConcepto=" + idConcepto +
                 ", respuestas=" + respuestas +
                 '}';
-    }
-
-    public Boolean hasNullOrEmptyAttributes() {
-        return contenidoPregunta == null || contenidoPregunta.trim().isEmpty()
-                || respuestas == null;
-
     }
 
 }
