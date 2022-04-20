@@ -1,9 +1,12 @@
 package org.adaitw.tp_api_java_coach.controller;
 
 import com.lowagie.text.DocumentException;
+import org.adaitw.tp_api_java_coach.advice_validation.RestResponse;
 import org.adaitw.tp_api_java_coach.model.dto.ReporteDTO;
 import org.adaitw.tp_api_java_coach.service.impl.ReporteServiceImpl;
 import org.adaitw.tp_api_java_coach.util.ReportePdfBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,23 +31,20 @@ public class ReporteController {
     @Autowired
     ReporteServiceImpl reporteServiceImpl;
 
-    private static final String reportes = ".//reportes";
+    private static final Logger logger = LoggerFactory.getLogger(ReporteController.class);
 
     @GetMapping(value= "/reporte")
     public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
-
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=Reporte_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
-
         List<ReporteDTO> cantidadEntidades = reporteServiceImpl.getData();
-
         ReportePdfBuilder exporter = new ReportePdfBuilder(cantidadEntidades);
         exporter.export(response);
-
+        logger.info("Se ha geneerado el reporte PDF con exito: " + response);
     }
 
 }

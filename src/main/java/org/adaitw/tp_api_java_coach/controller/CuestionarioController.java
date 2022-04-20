@@ -1,6 +1,7 @@
 package org.adaitw.tp_api_java_coach.controller;
 
-import org.adaitw.tp_api_java_coach.model.dto.ConceptoDTO;
+import org.adaitw.tp_api_java_coach.advice_validation.RestResponse;
+import org.adaitw.tp_api_java_coach.advice_validation.Time;
 import org.adaitw.tp_api_java_coach.model.dto.CuestionarioDTO;
 import org.adaitw.tp_api_java_coach.service.impl.CuestionarioServiceImpl;
 import org.slf4j.Logger;
@@ -19,38 +20,27 @@ public class CuestionarioController {
     @Autowired
     private CuestionarioServiceImpl cuestionarioServiceImpl;
 
-    private static final Logger logger = LoggerFactory.getLogger(CuestionarioServiceImpl.class);
+    RestResponse resultado;
 
-    @GetMapping(path = "/por/concepto/{id}", produces = "application/json")
+    private static final Logger logger = LoggerFactory.getLogger(CuestionarioController.class);
+
+    @GetMapping(path = "/por/concepto/{id}")
     public ResponseEntity getCuestionarioPorConceptos(@PathVariable Long id) {
 
-        try {
         List<CuestionarioDTO> cuestionarioDTOResponse = cuestionarioServiceImpl.getByIdConcepto(id);
-            logger.info("Se muestra lista de cuestionario con exito");
-            return new ResponseEntity<>(cuestionarioDTOResponse, HttpStatus.OK);
-        } catch (Exception e) {
-            logger.error("Error al mostrar la lista de cuestionario" + e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" + e.getMessage());
-        }
+        logger.info("Se muestra lista de cuestionario con exito: " + cuestionarioDTOResponse);
+        resultado = new RestResponse(Time.getTime(), cuestionarioDTOResponse.toString(), 200, "Success");
+        return new ResponseEntity<>(resultado, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/id_respuesta/id_pregunta/{id}", produces = "application/json")
+    @GetMapping(path = "/id_respuesta/id_pregunta/{id}")
     public ResponseEntity getCorreccionCuestionario(@PathVariable Long id) {
 
-        try {
-            Boolean correccion = cuestionarioServiceImpl.getCorreccionRespuesta(id);
-            String msg;
-            if (correccion == true) {
-                msg = "Respuesta correcta";
-            } else {
-                msg = "Respuesta incorrecta";
-            }
-            logger.info("Se muestra respuesta");
-            return new ResponseEntity<>(msg, HttpStatus.OK);
-        } catch (Exception e) {
-            logger.error("Error al mostrar respuesta" + e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" + e.getMessage());
-        }
+        Boolean correccion = cuestionarioServiceImpl.getCorreccionRespuesta(id);
+        String msg = correccion ? "Respuesta correcta" : "Respuesta incorrecta";
+        logger.info("Se muestra resultado para respuesta seleccionada: " + msg);
+        resultado = new RestResponse(Time.getTime(), msg, 200, "Success");
+        return new ResponseEntity<>(resultado, HttpStatus.OK);
     }
 
 }

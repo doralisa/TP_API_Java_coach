@@ -37,6 +37,8 @@ public class MailServiceImpl implements MailService<MailDTO, UsuarioEntity> {
     @Autowired
     private BusinessLogicExceptionComponent logicExceptionComponent;
 
+    private static final Logger logger = LoggerFactory.getLogger(MailServiceImpl.class);
+
     @Value("${spring.mail.username}")
     private String remitente;
 
@@ -56,6 +58,7 @@ public class MailServiceImpl implements MailService<MailDTO, UsuarioEntity> {
         mailDTO.setContenido(concepto.getContenidoConcepto());
         if (mailDTO.hasNullOrEmptyAttributes())
             throw logicExceptionComponent.getExceptionEntityEmptyValues("UsuarioEntity");
+        logger.warn("Cuerpo del mail: " + mailDTO);
         return enviarMailConsejo(mailDTO);
     }
 
@@ -69,6 +72,7 @@ public class MailServiceImpl implements MailService<MailDTO, UsuarioEntity> {
             helper.setTo(mailDTO.getPara());
             helper.setText(mailDTO.getContenido());
             mailSender.send(msg);
+            logger.warn("Mensaje enviado: " + mailDTO);
         return mailDTO;
     }
 }
