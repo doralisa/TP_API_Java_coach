@@ -1,9 +1,12 @@
 package org.adaitw.tp_api_java_coach.service.impl;
 
+import org.adaitw.tp_api_java_coach.controller.ReporteController;
 import org.adaitw.tp_api_java_coach.model.dto.*;
 import org.adaitw.tp_api_java_coach.model.repository.*;
 import org.adaitw.tp_api_java_coach.service.ReporteService;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +40,8 @@ public class ReporteServiceImpl implements ReporteService<ReporteDTO, Entity> {
 
     ReporteDTO reporteDTO = new ReporteDTO();
 
+    private static final Logger logger = LoggerFactory.getLogger(ReporteServiceImpl.class);
+
     @Override
     public List<ReporteDTO> getData() {
 
@@ -64,6 +69,7 @@ public class ReporteServiceImpl implements ReporteService<ReporteDTO, Entity> {
         reporteDTO.setCantidadUsuarios(usuarios);
 
         listaCantidadEntidades.add(reporteDTO);
+        logger.warn("Lista de cantidad de registros: " + listaCantidadEntidades);
 
         return listaCantidadEntidades;
     }

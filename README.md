@@ -1,12 +1,14 @@
 # TP_API_Java_coach_bot
 
-Se trata de una API para manejar una base de conocimientos para un bot que sea un coach de Java. Se realizó como para del trabajo practico para la finalización del curso de programación backend.
+Se trata de una API para manejar una base de conocimientos para un bot que sea un coach de Java. Se realizó como parte del trabajo practico para la finalización del curso de programación backend.
 
 Instrucciones generales:
 
 1. En el directorio "collection_postman", encontrará la colección de postman que debe ser importada con el mismo.
 2. En el directorio "scripts_generacion_bd" encontrará los scripts a ejecutar para generar la base de datos y su data.
-3. Para la prueba del endopoint /enviar/consejo, se recomienda ingresar un registro en la base de datos que contenga un dirección de correo válida, para recibir el mail correspondiente.
+3. Para la prueba del endopoint /enviar/consejo, se recomienda: 
+   - En "application.properties" inidicar en los campos "spring.mail.username" y "spring.mail.password" una dirección de correo y código de aplicación válidos.
+   - Ingresar un registro en la base de datos que contenga un dirección de correo válida, para recibir el mail correspondiente.
 
 El bot cuenta con los siguientes endpoints:
 
