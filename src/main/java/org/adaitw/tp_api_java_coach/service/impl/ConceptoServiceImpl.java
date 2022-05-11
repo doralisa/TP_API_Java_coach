@@ -34,7 +34,7 @@ public class ConceptoServiceImpl implements ConceptoService<ConceptoDTO, Concept
         List<ConceptoEntity> conceptoList = conceptoRepository.findAll();
         List<ConceptoDTO> conceptoDTO1 = new ArrayList<>();
         conceptoList.forEach(concepto -> conceptoDTO1.add(modelMapper.map(concepto, ConceptoDTO.class)));
-        logger.warn("Lista de conceptos encontrada: " + conceptoDTO1);
+        logger.info("Lista de conceptos encontrada: " + conceptoDTO1);
         return conceptoDTO1;
     }
 
@@ -47,7 +47,7 @@ public class ConceptoServiceImpl implements ConceptoService<ConceptoDTO, Concept
         conceptoGuardado = modelMapper.map(concepto, (Type) ConceptoDTO.class);
         if (conceptoGuardado.hasNullOrEmptyAttributes())
             throw logicExceptionComponent.getExceptionEntityEmptyValues("ConceptoEntity");
-        logger.warn("Nnuevo concepto: " + conceptoGuardado);
+        logger.info("Nuevo concepto: " + conceptoGuardado);
         return conceptoGuardado;
     }
 
@@ -69,7 +69,7 @@ public class ConceptoServiceImpl implements ConceptoService<ConceptoDTO, Concept
             conceptoActualizado = modelMapper.map(concepto, (Type) ConceptoDTO.class);
             if (conceptoActualizado.hasNullOrEmptyAttributes())
                 throw logicExceptionComponent.getExceptionEntityEmptyValues("ConceptoEntity");
-            logger.warn("Concepto actualizado: " + conceptoActualizado);
+            logger.info("Concepto actualizado: " + conceptoActualizado);
             return conceptoActualizado;
         }
         return null;

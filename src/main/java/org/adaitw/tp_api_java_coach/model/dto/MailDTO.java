@@ -21,15 +21,15 @@ public class MailDTO implements Serializable {
     private String asunto;
 
     @NotBlank(message = "is required")
-    @Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚÜüñÑ\\s]*$", message = "nombreUsuario contains invalid characters")
+    @Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚÜüñÑ\\s]*$", message = "email emisor contains invalid characters")
     private String de;
 
     @NotBlank(message = "is required")
-    @Pattern(regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message = "email contains invalid characters")
+    @Pattern(regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message = "email remitente contains invalid characters")
     private String para;
 
     @NotBlank(message = "is required")
-    @Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚÜüñÑ\\s]*$", message = "contenidoConcepto contains invalid characters")
+    @Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚÜüñÑ\\s]*$", message = "contenido email contains invalid characters")
     private String contenido;
 
     @Override
