@@ -181,7 +181,11 @@
 				"method": "POST",
 				"header": [],
 				"url": {
+<<<<<<< HEAD
 					"raw": "http://localhost:8090/enviar/consejo?email=psicodanielblanco@gmail.com",
+=======
+					"raw": "http://localhost:8090/enviar/consejo?email=doralisacr@gmail.com",
+>>>>>>> develop
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -194,7 +198,11 @@
 					"query": [
 						{
 							"key": "email",
+<<<<<<< HEAD
 							"value": "psicodanielblanco@gmail.com"
+=======
+							"value": "doralisacr@gmail.com"
+>>>>>>> develop
 						}
 					]
 				},
