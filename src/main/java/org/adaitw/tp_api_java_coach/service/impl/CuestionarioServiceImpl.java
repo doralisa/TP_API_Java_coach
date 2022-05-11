@@ -1,8 +1,8 @@
 package org.adaitw.tp_api_java_coach.service.impl;
 
 import org.adaitw.tp_api_java_coach.component.BusinessLogicExceptionComponent;
-import org.adaitw.tp_api_java_coach.controller.CuestionarioController;
 import org.adaitw.tp_api_java_coach.model.dto.CuestionarioDTO;
+import org.adaitw.tp_api_java_coach.model.dto.RespuestaDTO;
 import org.adaitw.tp_api_java_coach.model.entity.PreguntaEntity;
 import org.adaitw.tp_api_java_coach.model.entity.RespuestaEntity;
 import org.adaitw.tp_api_java_coach.model.repository.PreguntaRepository;
@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -40,23 +41,30 @@ public class CuestionarioServiceImpl implements CuestionarioService<Cuestionario
         modelMapper.getConfiguration().setAmbiguityIgnored(true);
         List<CuestionarioDTO> preguntasYRespuestas = new ArrayList<>();
         preguntasByIdconcepto.forEach(cuestionario -> preguntasYRespuestas.add(modelMapper.map(cuestionario, CuestionarioDTO.class)));
-        logger.warn("Cuestionario por concepto: " + preguntasYRespuestas);
+        logger.info("Cuestionario por concepto: " + preguntasYRespuestas);
         return preguntasYRespuestas;
     }
 
     @Override
-    public boolean getCorreccionRespuesta(Long id) {
+    public boolean getCorreccionRespuesta(Long idRespuesta, Long idPregunta) {
 
-        Optional<RespuestaEntity> respuestaEntity = respuestaRepository.findById(id);
-        RespuestaEntity respuesta = respuestaEntity
-                .orElseThrow(() -> logicExceptionComponent.getExceptionEntityNotFound("RespuestaEntity", id));
-        Long resultado = respuesta.getEsCorrecta();
-        if (resultado == 1) {
-            logger.warn(String.format("Corrección respuesta: %d", resultado));
-            return true;
+        Optional<RespuestaEntity> respuestaEntity = respuestaRepository.findById(idRespuesta);
+        RespuestaEntity respuestaEntity1 = respuestaEntity
+                .orElseThrow(() -> logicExceptionComponent.getExceptionEntityNotFound("RespuestaEntity", idPregunta));
+        PreguntaEntity idPreguntaRespuesta = respuestaEntity1.getIdPregunta();
+        Long idPreguntaEntity = idPreguntaRespuesta.getIdPregunta();
+        if (idPregunta == idPreguntaEntity) {
+            logger.info(String.format("El idRespuesta corresponde al idPregunta indicado"));
+            Long resultado = respuestaEntity1.getEsCorrecta();
+            if (resultado == 1) {
+                logger.info(String.format("Se realiza corrección a idRespuesta: %d", resultado));
+                return true;
+            }
+            logger.info(String.format("Se realiza corrección a idRespuesta: %d" + resultado));
+            return false;
         }
-        logger.warn(String.format("Corrección respuesta: " + resultado));
+        logger.info(String.format("El idRespuesta NO corresponde al idPregunta indicado"));
         return false;
-    }
+        }
 
 }

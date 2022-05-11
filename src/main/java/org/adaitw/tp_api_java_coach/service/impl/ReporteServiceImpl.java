@@ -69,7 +69,7 @@ public class ReporteServiceImpl implements ReporteService<ReporteDTO, Entity> {
         reporteDTO.setCantidadUsuarios(usuarios);
 
         listaCantidadEntidades.add(reporteDTO);
-        logger.warn("Lista de cantidad de registros: " + listaCantidadEntidades);
+        logger.info("Lista de cantidad de registros: " + listaCantidadEntidades);
 
         return listaCantidadEntidades;
     }

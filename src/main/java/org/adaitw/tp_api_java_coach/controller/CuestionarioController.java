@@ -32,10 +32,10 @@ public class CuestionarioController {
         return new ResponseEntity<>(cuestionarioDTOResponse, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/id_respuesta/id_pregunta/{id}")
-    public ResponseEntity getCorreccionCuestionario(@PathVariable Long id) {
+    @GetMapping(path = "/{idRespuesta}/{idPregunta}")
+    public ResponseEntity getCorreccionCuestionario(@PathVariable Long idRespuesta, @PathVariable Long idPregunta) {
 
-        Boolean correccion = cuestionarioServiceImpl.getCorreccionRespuesta(id);
+        Boolean correccion = cuestionarioServiceImpl.getCorreccionRespuesta(idRespuesta, idPregunta);
         String msg = correccion ? "Respuesta correcta" : "Respuesta incorrecta";
         logger.info("Se muestra resultado para respuesta seleccionada: " + msg);
         resultado = new RestResponse(Time.getTime(), msg, 200, "Success");
