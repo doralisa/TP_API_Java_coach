@@ -24,10 +24,10 @@ public class MailController {
 
     private static final Logger logger = LoggerFactory.getLogger(MailController.class);
 
-    @PostMapping(value = "/consejo/{nombreUsuario}")
-    public ResponseEntity mailConsejo(@PathVariable String nombreUsuario) throws MessagingException {
+    @PostMapping(value = "/consejo")
+    public ResponseEntity mailConsejo(@RequestParam(value = "email") String email) throws MessagingException {
 
-        MailDTO mailDTOResponse = mailService.mailConsejo(nombreUsuario);
+        MailDTO mailDTOResponse = mailService.mailConsejo(email);
         logger.info("correo enviado con exito: " + mailDTOResponse);
         resultado = new RestResponse(Time.getTime(), mailDTOResponse.toString(), 200, "Success");
         return new ResponseEntity<>(resultado, HttpStatus.OK);

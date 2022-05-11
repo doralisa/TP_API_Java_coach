@@ -1,106 +1,70 @@
-create table niveles
-(
-    id_nivel     int          not null
-        primary key,
-    nombre_nivel varchar(255) null
+drop database bot_java_coach;
+create database if not exists bot_java_coach;
+use bot_java_coach;
+
+-- NIVELES --
+CREATE TABLE if not exists Niveles (
+    id_nivel int NOT null PRIMARY KEY,
+    nombre_nivel varchar(255)
 );
 
-create table capitulos
-(
-    id_capitulo     int auto_increment
-        primary key,
-    numero_capitulo int         not null,
+-- CAPITULOS --
+create table if not exists Capitulos(
+    id_capitulo int NOT null auto_increment primary key,
+    numero_capitulo int not null unique,
     nombre_capitulo varchar(50) not null,
-    id_nivel        int         null,
-    constraint numero_capitulo
-        unique (numero_capitulo),
-    constraint capitulos_ibfk_1
-        foreign key (id_nivel) references niveles (id_nivel)
+    id_nivel int,
+    foreign key (id_nivel) references Niveles(id_nivel)
 );
 
-create index id_nivel
-    on capitulos (id_nivel);
-
-create table conceptos
-(
-    id_concepto        int auto_increment
-        primary key,
-    nombre_concepto    varchar(50) null,
-    id_capitulo        int         null,
-    numero_concepto    int         null,
-    contenido_concepto longtext    null,
-    id_pregunta        bigint      null,
-    constraint conceptos_ibfk_1
-        foreign key (id_capitulo) references capitulos (id_capitulo)
+-- USUARIOS --
+CREATE table if not exists Usuarios(
+    id_usuario INT NOT null AUTO_INCREMENT PRIMARY KEY,
+    nombre_usuario varchar(50) UNIQUE,
+    contrasenia varchar(10),
+    nombre varchar(50),
+    apellido varchar(50),
+    fecha_nacimiento date,
+    email varchar(100) UNIQUE,
+    telefono varchar(30),
+    id_nivel int,
+    foreign key (id_nivel) references Niveles(id_nivel)
 );
 
-create index id_capitulo
-    on conceptos (id_capitulo);
-
-create table ejemplos
-(
-    id_ejemplos         int auto_increment
-        primary key,
-    contenido_ejemplo   varchar(255) null,
-    descripcion_ejemplo varchar(255) null,
-    id_concepto         int          null,
-    constraint ejemplos_ibfk_1
-        foreign key (id_concepto) references conceptos (id_concepto),
-    constraint FKcep9ko130cqpf7r94qkea7s4r
-        foreign key (id_concepto) references ejemplos (id_ejemplos)
+-- CONCEPTOS --
+CREATE TABLE if not exists Conceptos (
+    id_concepto int NOT null auto_increment PRIMARY key, 
+    nombre_concepto varchar(50),
+    id_capitulo int,
+    FOREIGN KEY (id_capitulo) REFERENCES Capitulos(id_capitulo),
+    numero_concepto int,
+    contenido_concepto LONGTEXT
 );
 
-create table preguntas
-(
-    id_pregunta        int auto_increment
-        primary key,
+-- EJEMPLOS --
+CREATE TABLE if not exists Ejemplos (
+    id_ejemplos int NOT null PRIMARY key auto_increment,
+    contenido_ejemplo varchar(255),
+    descripcion_ejemplo varchar(255),
+    id_concepto int,
+    FOREIGN key (id_concepto) REFERENCES Conceptos(id_concepto)
+);
+
+-- PREGUNTAS --
+CREATE TABLE if not exists Preguntas (
+    id_pregunta int NOT null PRIMARY key auto_increment,
     contenido_pregunta varchar(255) not null,
-    id_concepto        int          not null,
-    constraint preguntas_ibfk_1
-        foreign key (id_concepto) references conceptos (id_concepto),
-    constraint fk_preguntas_conceptos
-        foreign key (id_concepto) references capitulos (id_capitulo)
+    id_concepto int not null,
+    FOREIGN KEY (id_concepto) REFERENCES Conceptos(id_concepto)
 );
 
-create table respuestas
-(
-    id_respuesta         int auto_increment
-        primary key,
+-- RESPUESTAS --
+CREATE TABLE if not exists Respuestas (
+    id_respuesta int NOT null PRIMARY key auto_increment,
     contenido_respuestas varchar(255) not null,
-    id_pregunta          int          not null,
-    es_correcta          tinyint      not null,
-    constraint respuestas_ibfk_1
-        foreign key (id_pregunta) references preguntas (id_pregunta)
+    id_pregunta int not null,
+    FOREIGN KEY (id_pregunta) REFERENCES Preguntas(id_pregunta),
+    es_correcta boolean not null    
 );
-
-alter table preguntas
-    add constraint FKqn31cakafd7t34yord3pt8qne
-        foreign key (id_pregunta) references respuestas (id_respuesta);
-
-create index id_pregunta
-    on respuestas (id_pregunta);
-
-create table usuarios
-(
-    id_usuario       int auto_increment
-        primary key,
-    nombre_usuario   varchar(50)  null,
-    contrasenia      varchar(10)  null,
-    nombre           varchar(50)  null,
-    apellido         varchar(50)  null,
-    fecha_nacimiento date         null,
-    email            varchar(100) null,
-    telefono         varchar(30)  null,
-    id_nivel         int          null,
-    constraint email
-        unique (email),
-    constraint nombre_usuario
-        unique (nombre_usuario),
-    constraint usuarios_ibfk_1
-        foreign key (id_nivel) references niveles (id_nivel)
-);
-
-create index id_nivel
-    on usuarios (id_nivel);
 
 

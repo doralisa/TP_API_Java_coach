@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "http://localhost:8080/conceptos",
+			"name": "http://localhost:8090/conceptos",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -17,12 +17,12 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/conceptos",
+					"raw": "http://localhost:8090/conceptos",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8090",
 					"path": [
 						"conceptos"
 					]
@@ -32,7 +32,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/conceptos/crear",
+			"name": "http://localhost:8090/conceptos/crear",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -57,12 +57,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/conceptos/crear",
+					"raw": "http://localhost:8090/conceptos/crear",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8090",
 					"path": [
 						"conceptos",
 						"crear"
@@ -73,7 +73,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/conceptos/eliminar",
+			"name": "http://localhost:8090/conceptos/eliminar",
 			"request": {
 				"method": "DELETE",
 				"header": [
@@ -84,16 +84,16 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/conceptos/eliminar/13",
+					"raw": "http://localhost:8090/conceptos/eliminar/5",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8090",
 					"path": [
 						"conceptos",
 						"eliminar",
-						"13"
+						"5"
 					]
 				},
 				"description": "Elimina un concepto."
@@ -101,13 +101,13 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/conceptos/actualizar",
+			"name": "http://localhost:8090/conceptos/actualizar",
 			"request": {
 				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"idConcepto\": 9,\r\n        \"nombreConcepto\": \"Entendiendo las excepciones\",\r\n        \"numeroConcepto\": 2,\r\n        \"contenidoConcepto\": \"Las excepciones permiten que un método informe al código que lo ha invocado acerca de algún error o situación anómala que se haya producido durante su ejecución. Por ejemplo, supongamos un método que recibe un código postal y devuelve el nombre del ayuntamiento al cual pertenece. En el caso normal de que el código postal sea correcto, el método devolvería el nombre del ayuntamiento. En el caso de que el código postal que se le haya pasado no exista o su formato sea incorrecto, el método lo notificaría lanzando una excepción. Una excepción en Java es un objeto de la clase Exception o de alguna de sus subclases\",\r\n        \"idCapitulo\": {\r\n            \"idCapitulo\": 6,\r\n            \"nombreCapitulo\": \"Excepciones\",\r\n            \"numeroCapitulo\": 6\r\n        }\r\n    }",
+					"raw": "{\r\n        \"idConcepto\": 5,\r\n        \"nombreConcepto\": \"Entendiendo las excepciones\",\r\n        \"numeroConcepto\": 2,\r\n        \"contenidoConcepto\": \"Las excepciones permiten que un método informe al código que lo ha invocado acerca de algún error o situación anómala que se haya producido durante su ejecución. Por ejemplo, supongamos un método que recibe un código postal y devuelve el nombre del ayuntamiento al cual pertenece. En el caso normal de que el código postal sea correcto, el método devolvería el nombre del ayuntamiento. En el caso de que el código postal que se le haya pasado no exista o su formato sea incorrecto, el método lo notificaría lanzando una excepción. Una excepción en Java es un objeto de la clase Exception o de alguna de sus subclases\",\r\n        \"idCapitulo\": {\r\n            \"idCapitulo\": 6,\r\n            \"nombreCapitulo\": \"Excepciones\",\r\n            \"numeroCapitulo\": 6\r\n        }\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -115,12 +115,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/conceptos/actualizar",
+					"raw": "http://localhost:8090/conceptos/actualizar",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8090",
 					"path": [
 						"conceptos",
 						"actualizar"
@@ -131,22 +131,22 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/cuestionario/por/concepto",
+			"name": "http://localhost:8090/cuestionario/por/concepto",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/cuestionario/por/concepto/4",
+					"raw": "http://localhost:8090/cuestionario/por/concepto/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8090",
 					"path": [
 						"cuestionario",
 						"por",
 						"concepto",
-						"4"
+						"1"
 					]
 				},
 				"description": "este endpoint debe recibir un concepto y debe devolver las\r\npreguntas y respuestas posibles relacionadas a este concepto."
@@ -154,22 +154,21 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/cuestionario/id_respuesta/id_pregunta/",
+			"name": "http://localhost:8090/cuestionario/id_respuesta/id_pregunta/",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/cuestionario/id_respuesta/id_pregunta/10",
+					"raw": "http://localhost:8090/cuestionario/1/2",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8090",
 					"path": [
 						"cuestionario",
-						"id_respuesta",
-						"id_pregunta",
-						"10"
+						"1",
+						"2"
 					]
 				},
 				"description": "Este enpoint debe validar si el id_respuesta\r\nenviado es valido para el id_pregunta correspondiente. Este endpoint resuelve el\r\ncuestionario del endpoint anterior-"
@@ -177,21 +176,26 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/enviar/consejo/",
+			"name": "http://localhost:8090/enviar/consejo/",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/enviar/consejo/dcontreras",
+					"raw": "http://localhost:8090/enviar/consejo?email=psicodanielblanco@gmail.com",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8090",
 					"path": [
 						"enviar",
-						"consejo",
-						"dcontreras"
+						"consejo"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "psicodanielblanco@gmail.com"
+						}
 					]
 				},
 				"description": "Este endpoint sirve para enviar un consejo aleatorio (concepto) via correo a un destinatario."
@@ -199,7 +203,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/generar/reporte",
+			"name": "http://localhost:8090/generar/reporte",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -210,12 +214,12 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/generar/reporte",
+					"raw": "http://localhost:8090/generar/reporte",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8090",
 					"path": [
 						"generar",
 						"reporte"

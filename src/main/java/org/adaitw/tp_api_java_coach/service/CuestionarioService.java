@@ -12,8 +12,9 @@ public interface CuestionarioService <T,E> {
 
     /**
      *
-     * @param id
+     * @param idRespuesta
+     * @param idPregunta
      * @return
      */
-    boolean getCorreccionRespuesta(Long id);
+    boolean getCorreccionRespuesta(Long idRespuesta, Long idPregunta);
 }
